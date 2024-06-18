@@ -59,7 +59,6 @@ static io_connect_t IN_GetIOHandle(void)
 #endif
 #endif
 
-
 // Tell startup code that we have a client
 int cl_available = true;
 
@@ -1051,7 +1050,6 @@ void Sys_SDL_HandleEvents(void)
 	SDL_Event event;
 
 	VID_EnableJoystick(true);
-
 	while( SDL_PollEvent( &event ) )
 		loop_start:
 		switch( event.type ) {
@@ -1186,8 +1184,8 @@ void Sys_SDL_HandleEvents(void)
 					case SDL_WINDOWEVENT_RESIZED: // external events only
 						if(vid_resizable.integer < 2)
 						{
-							//vid.width = event.window.data1;
-							//vid.height = event.window.data2;
+							// vid.width = event.window.data1;
+							// vid.height = event.window.data2;
 							// get the real framebuffer size in case the platform's screen coordinates are DPI scaled
 							SDL_GL_GetDrawableSize(window, &vid.mode.width, &vid.mode.height);
 						}
@@ -1537,6 +1535,7 @@ On Xorg it returns the correct value.
 		return;
 */
 
+	// __EMSCRIPTEN__ SDL_GL_SetSwapInterval() calls emscripten_set_main_loop_timing()
 	if (SDL_GL_SetSwapInterval(vsyncwanted) >= 0)
 		Con_DPrintf("Vsync %s\n", vsyncwanted ? "activated" : "deactivated");
 	else
@@ -1711,10 +1710,8 @@ static qbool VID_InitModeGL(const viddef_mode_t *mode)
 {
 	int windowflags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
 	int i;
-#ifndef USE_GLES2
 	// SDL usually knows best
 	const char *drivername = NULL;
-#endif
 
 	// video display selection (multi-monitor)
 	Cvar_SetValueQuick(&vid_info_displaycount, SDL_GetNumVideoDisplays());
