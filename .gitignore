@@ -17,6 +17,8 @@ ChangeLog
 darkplaces-agl
 darkplaces-glx
 darkplaces-sdl
+darkplaces-wasm.html
+darkplaces-wasm.js
 darkplaces-dedicated
 gmon.out
 *.ncb
@@ -35,9 +37,12 @@ Makefile.win
 *.gch
 /.vs
 /build
+build-obj/
 /.cache
 *.kdev4
 *.vcxproj.user
 *.pdb
 *.lib
 *.exp
+emsdk/
+docs/output/
